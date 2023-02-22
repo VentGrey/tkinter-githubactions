@@ -1,0 +1,50 @@
+name: Construir binario Linux
+
+on:
+  push:
+    tags:
+     - "*"
+  pull_request:
+    branches: [ master ]
+  release:
+    types: [published, prereleased]
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository code
+        uses: actions/checkout@v2
+
+      # Configure python
+      - name: Configure Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Instalar entornos virtuales
+        run: |
+          python -m pip install --upgrade pipenv wheel
+
+      - id: cache-pipenv
+        uses: actions/cache@v1
+        with:
+          path: ~/.local/share/virtualenvs
+          key: ${{ runner.os }}${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
+
+      - name: Instalar Dependencias
+        if: steps.cache-pipenv.outputs.cache-hit != 'true'
+        run: |
+          pipenv install --deploy --dev
+
+      - name: Construir los binarios para todos los sistemas operativos
+        run: |
+          pipenv run pyinstaller --hidden-import=tkinter --add-data="logo.jpeg:img" --name="Parabol_linux" --splash parabol_logo.png --onefile parabol.py
+      - name: Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            dist/Parabol_linux
