@@ -1,5 +1,6 @@
-name: Construir binario Linux
+name: Build App for Linux
 
+# Only trigger this workflow when a new tag is pushed
 on:
   push:
     tags:
@@ -19,15 +20,16 @@ jobs:
       - name: Checkout repository code
         uses: actions/checkout@v2
 
-      # Configure python
+      # Configure python 3.9
       - name: Configure Python
         uses: actions/setup-python@v4
         with:
-          python-version: "3.10"
+          python-version: "3.9"
 
-      - name: Instalar entornos virtuales
+      - name: Install virtual envs and dependencies
         run: |
           python -m pip install --upgrade pipenv wheel
+          apt install -y python3-tk
 
       - id: cache-pipenv
         uses: actions/cache@v1
@@ -35,16 +37,17 @@ jobs:
           path: ~/.local/share/virtualenvs
           key: ${{ runner.os }}${{ runner.os }}-pipenv-${{ hashFiles('**/Pipfile.lock') }}
 
-      - name: Instalar Dependencias
+      - name: Install pipenv dependencies
         if: steps.cache-pipenv.outputs.cache-hit != 'true'
         run: |
           pipenv install --deploy --dev
 
-      - name: Construir los binarios para todos los sistemas operativos
+      - name: Build Linux executable
         run: |
-          pipenv run pyinstaller --hidden-import=tkinter --add-data="logo.jpeg:img" --name="Parabol_linux" --splash parabol_logo.png --onefile parabol.py
+          pipenv run pyinstaller --hidden-import=tkinter --name="app_linux" --onefile app.py
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
           files: |
-            dist/Parabol_linux
+            dist/app_linux
+
