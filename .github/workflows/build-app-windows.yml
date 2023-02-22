@@ -1,4 +1,4 @@
-name: Construir binario Windows
+name: Build App for Windows
 
 on:
   push:
