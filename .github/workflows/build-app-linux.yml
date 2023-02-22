@@ -26,10 +26,12 @@ jobs:
         with:
           python-version: "3.9"
 
+      - name: Install Tkinter for Ubuntu
+        run: sudo apt-get install python3-tk
+
       - name: Install virtual envs and dependencies
         run: |
           python -m pip install --upgrade pipenv wheel
-          apt install -y python3-tk
 
       - id: cache-pipenv
         uses: actions/cache@v1
