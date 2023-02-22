@@ -42,7 +42,7 @@ jobs:
 
       - name: Construir los binarios para todos los sistemas operativos
         run: |
-          pipenv run pyinstaller --hidden-impot=tkinter --name "iApp" --onefile main.py
+          pipenv run pyinstaller --name "iApp" --onefile main.py
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
