@@ -7,6 +7,7 @@ name = "pypi"
 pyinstaller = "*"
 pywin32-ctypes = "*"
 pefile = "*"
+macholib = "*"
 
 [dev-packages]
 
