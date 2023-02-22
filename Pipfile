@@ -8,6 +8,7 @@ pyinstaller = "*"
 pywin32-ctypes = "*"
 pefile = "*"
 macholib = "*"
+pillow = "*"
 
 [dev-packages]
 
