@@ -5,6 +5,7 @@ name = "pypi"
 
 [packages]
 pyinstaller = "*"
+pywin32-ctypes = "*"
 
 [dev-packages]
 
