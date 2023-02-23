@@ -42,7 +42,7 @@ jobs:
 
       - name: Construir los binarios para todos los sistemas operativos
         run: |
-          pipenv run pyinstaller --icon=icon.ico --windowed --name="App" --onefile main.py
+          pipenv run pyinstaller --icon=icon.ico --windowed --name="App" --splash splash.png --onefile main.py
       - name: Release
         uses: softprops/action-gh-release@v1
         with:

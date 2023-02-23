@@ -46,7 +46,7 @@ jobs:
 
       - name: Build Linux executable
         run: |
-          pipenv run pyinstaller --hidden-import=tkinter --name="app_linux" --onefile main.py
+          pipenv run pyinstaller --hidden-import=tkinter --name="app_linux" --splash splash.png --onefile main.py
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
