@@ -1,6 +1,6 @@
 # tkinter-githubactions
 
-A template repository with Python + TKinter + GitHub Actions automated builds.
+A template repository with Python + TKinter + GitHub Actions automated builds. This repository is an example of this [blog post](https://ventgrey.github.io/posts/pyinstaller/)
 
 ## Overview
 
