@@ -1,6 +1,6 @@
 import sys
 import webbrowser
-
+import pyi_splash
 # Condicionar el import de tkinter de acuerdo a nuestra versión de Python.
 
 if sys.version_info[0] == 3:
@@ -28,5 +28,9 @@ class App(Tk):
 # Inicializar la GUI.
 
 app = App()
+
+# Cerrar el splashscreen
+pyi_splash.close()
+
 app.mainloop()
 
